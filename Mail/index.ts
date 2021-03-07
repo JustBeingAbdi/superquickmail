@@ -14,7 +14,7 @@ const request = mailjet
   "Messages":[
     {
       "From": {
-        "Email": 'api@superquickemail.cf',
+        "Email": Config.email,
         "Name": from
       },
       "To": [
