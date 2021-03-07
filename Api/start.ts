@@ -33,13 +33,14 @@ new Connect().connect(Config.database);
     });
     api.get("/api/email/send", async(req, res) => {
         let to = req.query.to;
+        let from = req.query.from;
         
         let subject = req.query.subject;
 
 
         let body = req.query.body
         if(!body) return res.status(401).end();
-        let email = this.mail.SendMail(to, subject, body);
+        let email = this.mail.SendMail(from, to, subject, body);
 
         res.status(200).send({
             message: email,
