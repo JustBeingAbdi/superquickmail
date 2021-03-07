@@ -14,6 +14,10 @@ export class Database {
         let userDB = await data.user.findOne({id:api});
         if(userDB) return userDB;
     }
+    public async GetUserViaToken(token): Promise<any> {
+        let userDB = await data.user.findOne({token:token});
+        if(userDB) return userDB;
+    }
 }
 
 export class Connect {

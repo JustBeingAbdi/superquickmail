@@ -1,9 +1,9 @@
 import { Document, Model, model, Schema } from "mongoose";
+import srs from "secure-random-string";
 
 export interface IApiUser extends Document {
     id:string,
-    email:string,
-    password:string,
+    token:string,
     service:string
     
 
@@ -11,8 +11,7 @@ export interface IApiUser extends Document {
 
 export const ApiUserS: Schema = new Schema({
     id: { type: String },
-    email: { type: String },
-    password: { type: String },
+    token: { type: String, default: srs({length:60})},
     service: { type: String }
 })
 

@@ -3,6 +3,9 @@ import nodemailer from "nodemailer";
 import {Database, Connect} from "./../Database";
 import * as Config from "./../Config";
 import {Mail} from "../Mail";
+import bodyparser from "body-parser";
+import path from "path";
+import ejs from "ejs";
 
 export class Api {
     public database: Database = new Database();
@@ -11,6 +14,13 @@ export class Api {
 new Connect().connect(Config.database);
     
     let api = express();
+    api.use(bodyparser.json());
+    api.use(bodyparser.urlencoded({ extended: true }));
+    api.engine("html", ejs.renderFile);
+    api.set('view engine', 'ejs');
+    api.set('views', path.join(__dirname, "./../views"));
+    api.use(express.static(path.join(__dirname, "./../public")));
+    api.set('trust proxy', true)
 
     api.get("/", async(req, res) => {
         res.send("Ok");
