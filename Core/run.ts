@@ -3,12 +3,9 @@ import {Api} from "./../Api/start";
 
 export class Core {
     public async init(): Promise<any> {
-        this.start();
+         new Api().init();
     }
 
-    private async start(): Promise<any> {
-        new Api().init();
-
-    }
+    
     
 }
