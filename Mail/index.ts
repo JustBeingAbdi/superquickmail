@@ -4,9 +4,9 @@ import srs from "secure-random-string";
 const mailjet = require("node-mailjet").connect(Config.apikey, Config.secretkey);
 
 export class Mail {
-    public async SendMail(to, subject, text): Promise<any> {
+    public async SendMail(fromm, to, subject, text): Promise<any> {
 let customID = srs({length:10});
-let from = customID + '@superquickemail.cf';
+let from = fromm || 'api@superquickemail.cf';
 
 const request = mailjet
 .post("send", {'version': 'v3.1'})
