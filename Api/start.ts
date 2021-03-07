@@ -2,10 +2,11 @@ import express from "express";
 import nodemailer from "nodemailer";
 import {Database, Connect} from "./../Database";
 import * as Config from "./../Config";
-import * as Gmail from "./../Mail/Gmail/mail";
+import {Mail} from "../Mail";
 
 export class Api {
     public database: Database = new Database();
+    public mail: Mail = new Mail();
     public async init(): Promise<any> {
 new Connect().connect(Config.database);
     
@@ -14,16 +15,36 @@ new Connect().connect(Config.database);
     api.get("/", async(req, res) => {
         res.send("Ok");
     })
-    api.post("/email/send/default", async(req, res) => {
+    api.post("/api/email/send", async(req, res) => {
         let to = req.query.to;
         let from = req.query.from;
+        let subject = req.query.subject;
+
 
         let body = req.body;
         if(!body) return res.status(401).end();
-        
-    })
-    api.get("/send/test-email/", async(req, res) => {
+        let email = this.mail.SendMail(from, to, subject, req.body);
 
+        res.status(200).send({
+            message: email,
+            status: 200,
+        });
+        
+    });
+    api.get("/api/email/send", async(req, res) => {
+        let to = req.query.to;
+        
+        let subject = req.query.subject;
+
+
+        let body = req.query.body
+        if(!body) return res.status(401).end();
+        let email = this.mail.SendMail(to, subject, body);
+
+        res.status(200).send({
+            message: email,
+            status: 200,
+        });
     })
 
     api.listen(3000);

@@ -3,7 +3,9 @@ import {Api} from "./../Api/start";
 
 export class Core {
     public async init(): Promise<any> {
-         new Api().init();
+         new Api().init().then(x => {
+             console.log("WebServer is Online")
+         })
     }
 
     
