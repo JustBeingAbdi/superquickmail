@@ -6,7 +6,7 @@ const mailjet = require("node-mailjet").connect(Config.apikey, Config.secretkey)
 export class Mail {
     public async SendMail(fromm, to, subject, text): Promise<any> {
 let customID = srs({length:10});
-let from = fromm || 'api@superquickemail.cf';
+let from = fromm || 'Unknown User';
 
 const request = mailjet
 .post("send", {'version': 'v3.1'})
@@ -14,7 +14,7 @@ const request = mailjet
   "Messages":[
     {
       "From": {
-        "Email": from,
+        "Email": 'api@superquickemail.cf',
         "Name": from
       },
       "To": [
