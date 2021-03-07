@@ -23,7 +23,7 @@ new Connect().connect(Config.database);
         
     })
     api.get("/send/test-email/", async(req, res) => {
-new Gmail.Mail().SendMail("lg.tv.her.er.jeg@gmail.com", "lg.tv.her.er.jeg@yandex.com", "Hi", "Hi");
+
     })
 
     api.listen(3000);
