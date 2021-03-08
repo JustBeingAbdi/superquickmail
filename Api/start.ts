@@ -95,8 +95,7 @@ new Connect().connect(Config.database);
         });
     })
 
-    api.listen(port).then(x => {
-        console.log("WebServer is online on Port " + port)
-    })
+    api.listen(port);
+    console.log("Webserver is online on port " + port)
     }
 }
