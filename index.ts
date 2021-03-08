@@ -6,7 +6,5 @@ ServerConfig.ports.forEach(x => {
 Webserver.init(x);
 })
 } else {
-    Webserver.init(ServerConfig.defaultport).then(z => {
-        console.log("WebServer is Online on port " + x);
-    })
+    Webserver.init(ServerConfig.defaultport)
 }
