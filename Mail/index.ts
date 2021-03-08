@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import * as Config from "../Config";
+import * as Config from "../lib/EmailConfig";
 import srs from "secure-random-string";
 const mailjet = require("node-mailjet").connect(Config.apikey, Config.secretkey);
 
