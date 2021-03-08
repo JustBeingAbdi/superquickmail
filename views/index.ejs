@@ -1,21 +1,14 @@
-<html>
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
-            <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
-
-                <link rel="stylesheet" type="text/css" href="/css/reset.min.css">
-                <link rel="stylesheet" type="text/css" href="/css/style.css">
-    </head>
-    <body >
+<%- include("partials/header") %>
+<title> Home - SuperQuickMail </title>
 
     
+<div class="container text-center text-light" style="padding-top: 110px; padding-bottom: 20px;">
 
         <h2>Welcome to SuperQuickMail Api</h2>
        
-            <button id="apikeybutton" type="button" onclick="CreateApiKey()">Create an Api Key</button>
+                        <a id="apikeybutton" href="#" onclick="CreateApiKey()" type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Create an Api Key</a>
             <p id="apikey"></p>
+            </div>
 <script src="/js/index.js"></script>
 <script src="/js/apikey.js"></script>
        
-    </body>
-</html>

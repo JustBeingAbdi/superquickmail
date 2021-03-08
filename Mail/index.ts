@@ -35,7 +35,7 @@ request
     console.log(result.body)
   })
   .catch((err) => {
-    console.log(err.statusCode)
+    return 404;
   })
 
   return customID;

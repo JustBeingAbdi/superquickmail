@@ -69,11 +69,14 @@ new Connect().connect(Config.database);
 
         let body = req.body;
         if(!body) return res.status(401).end();
-        let email = this.mail.SendMail(from, to, subject, req.body);
+        let email = await this.mail.SendMail(from, to, subject, req.body);
+        if(email === 404) return res.status(404).send({
+            message: "Invalid Query's"
+        })
 
         res.status(200).send({
-            message: email,
-            status: 200,
+            id: email,
+            to: to,
         });
         
     });
