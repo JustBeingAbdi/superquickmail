@@ -49,7 +49,7 @@ new Connect().connect(Config.database);
         if(!data) return res.send("No");
         res.send(data.id);
     })
-    api.post("/api/email/send", async(req, res) => {
+    api.post("/api/email/html/send", async(req, res) => {
         if(EmailConfig.authorization){
         let authorization = req.headers.authorization;
         if(!authorization) return res.status(401).send({
@@ -69,7 +69,7 @@ new Connect().connect(Config.database);
 
         let body = req.body;
         if(!body) return res.status(401).end();
-        let email = await this.mail.SendMail(from, to, subject, req.body);
+        let email = await this.mail.SendMailHTMl(from, to, subject, req.body);
         if(email === 404) return res.status(404).send({
             message: "Invalid Query's"
         })
@@ -80,7 +80,7 @@ new Connect().connect(Config.database);
         });
         
     });
-    api.get("/api/email/send", async(req, res) => {
+    api.get("/api/email/html/send", async(req, res) => {
         if(!EmailConfig.allowGet) return;
         let to = req.query.to;
         let from = req.query.from;
@@ -90,7 +90,7 @@ new Connect().connect(Config.database);
 
         let body = req.query.body
         if(!body) return res.status(401).end();
-        let email = this.mail.SendMail(from, to, subject, body);
+        let email = this.mail.SendMailHTMl(from, to, subject, body);
 
         res.status(200).send({
             message: email,
