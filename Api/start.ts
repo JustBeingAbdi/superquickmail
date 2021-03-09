@@ -28,18 +28,10 @@ new Connect().connect(Config.database);
             db: this.database
         });
     })
-    api.get("/apikey/create", async(req, res) => {
-        let id = srs({length:30});
-        let data = await this.database.CreateUser(id);
-        let responsdata = {
-            token: data.token,
-            apikey: data.id
-        };
-        res.send(`${data.id} ${data.token}`)
-    })
+    
     api.get("/users/apikey/find", async(req, res) => {
         let key = req.query.key;
-        let data = await this.database.GetUser(key);
+        let data = await this.database.GetApiKey(key);
         res.send(data.token);
         console.log(data.token);
     })

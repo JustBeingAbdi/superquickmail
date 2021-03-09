@@ -42,6 +42,10 @@ new Connect().connect(Config.database);
         keyDB.delete();
         res.redirect(redirect);
     })
+    app.post("/users/manage/email", async(req, res) => {
+        let email = req.query.email;
+        let userDB = await this.database.
+    })
 
     
 

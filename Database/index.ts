@@ -1,18 +1,29 @@
 import mongoose from "mongoose";
 import {data} from "./database";
+import srs from "secure-random-string";
 
 
 export class Database {
-    public async CreateUser(api): Promise<any> {
+    public async CreateUser(email, password): Promise<any> {
         let userDB = new data.user({
-            id: api
+            email: email,
+            password: password
         });
         userDB.save();
         return userDB;
     }
-    public async GetUser(api): Promise<any> {
-        let userDB = await data.user.findOne({id:api});
+    public async GetApiKey(api): Promise<any> {
+        let userDB = await data.apikey.findOne({key:api});
         if(userDB) return userDB;
+    }
+    public async CreateApiKey(token): Promise<any> {
+        let apiDB = new data.apikey({
+            key: srs({length:20}),
+            token: token
+        });
+        apiDB.save();
+        return apiDB;
+
     }
     public async GetUserViaToken(token): Promise<any> {
         let userDB = await data.user.findOne({token:token});
