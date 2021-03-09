@@ -97,6 +97,54 @@ new Connect().connect(Config.database);
             status: 200,
         });
     })
+    api.post("/api/email/text/send", async(req, res) => {
+        if(EmailConfig.authorization){
+        let authorization = req.headers.authorization;
+        if(!authorization) return res.status(401).send({
+            message: "Invalid Authorization",
+            status: 401
+        });
+        let data = await this.database.GetUser(authorization);
+        if(!data) return res.status(401).send({
+            message: "Invalid Authorization",
+            status: 401
+        });
+    }
+        let to = req.query.to;
+        let from = req.query.from;
+        let subject = req.query.subject;
+
+
+        let body = req.body;
+        if(!body) return res.status(401).end();
+        let email = await this.mail.SendMailTEXT(from, to, subject, req.body);
+        if(email === 404) return res.status(404).send({
+            message: "Invalid Query's"
+        })
+
+        res.status(200).send({
+            id: email,
+            to: to,
+        });
+        
+    });
+    api.get("/api/email/text/send", async(req, res) => {
+        if(!EmailConfig.allowGet) return;
+        let to = req.query.to;
+        let from = req.query.from;
+        
+        let subject = req.query.subject;
+
+
+        let body = req.query.body
+        if(!body) return res.status(401).end();
+        let email = this.mail.SendMailTEXT(from, to, subject, body);
+
+        res.status(200).send({
+            message: email,
+            status: 200,
+        });
+    })
 
     api.listen(port);
     console.log("Webserver is online on port " + port)
