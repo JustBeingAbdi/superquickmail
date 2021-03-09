@@ -24,7 +24,7 @@ new Connect().connect(Config.database);
     api.set('trust proxy', true)
 
     api.get("/", async(req, res) => {
-        res.render("index", {
+        res.render("api/index", {
             db: this.database
         });
     })

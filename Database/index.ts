@@ -18,6 +18,10 @@ export class Database {
         let userDB = await data.user.findOne({token:token});
         if(userDB) return userDB;
     }
+    public async GetRedirect(key): Promise<any> {
+        let rDB = await data.redirect.findOne({key: key});
+        if(key) return key;
+    }
 }
 
 export class Connect {

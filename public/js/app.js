@@ -1,11 +1,13 @@
 var userdata = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
 
+function CreateApiKey() {
+    window.location.assign("/manage/account/api/management");
+}
 
 
 function CheckUser() {
     let user = localStorage.getItem("user");
-    let loggedin = document.getElementById("loggedin");
-    loggedin.style.visibility = "hidden";
+    
     
     if(user === 'false') return;
     let request = new XMLHttpRequest();
@@ -13,14 +15,8 @@ function CheckUser() {
     request.send();
 
     setTimeout(function() {
-        if(request.response === 'No') return;
-
-        let notloggedin = document.getElementById("loggedin");
-        notloggedin.style.visibility = "hidden";
-        loggedin.visibility = 'visable'
+        if(request.response === 'No') return window.location.assign("/api");
         
-    }, 1500)
+    }, 1500);
 
-    
 }
-CheckUser();
