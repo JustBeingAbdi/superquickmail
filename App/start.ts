@@ -44,7 +44,7 @@ new Connect().connect(Config.database);
     })
     app.post("/users/manage/email", async(req, res) => {
         let email = req.query.email;
-        let userDB = await this.database.
+        
     })
 
     
