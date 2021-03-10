@@ -37,6 +37,14 @@ export class Database {
         let apikeyDB = await data.apikey.find({token: token});
         if(apikeyDB) return apikeyDB;
     }
+    public async CreateRedirect(token): Promise<any> {
+        let rDB = new data.redirect({
+            key: srs({length:60}),
+            token: token
+        })
+        rDB.save();
+        return rDB;
+    }
 }
 
 export class Connect {

@@ -1,6 +1,7 @@
 var userdata = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
 
-
+document.getElementById("app").href = `/app?redirect=app&token=${localStorage.getItem("user")}`;
+document.getElementById("account")
 
 function CheckUser() {
     let user = localStorage.getItem("user");

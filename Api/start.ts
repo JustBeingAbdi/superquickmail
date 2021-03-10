@@ -35,6 +35,17 @@ new Connect().connect(Config.database);
         res.send(data.token);
         console.log(data.token);
     })
+    api.get("/app", async(req, res) => {
+        let redirect = req.query.redirect || "/app";
+        let usertoken = req.query.token;
+        if(!usertoken) return res.redirect("/");
+        let userDB = await this.database.GetUserViaToken(usertoken);
+        if(!userDB) return res.redirect("/");
+        let keyDB = await this.database.CreateRedirect(usertoken);
+        res.redirect(`${ServerConfig.appurl}/api/redirect?key=${keyDB.key}&redirect=${redirect}`);
+
+
+    })
     api.get("/users/verify/token", async(req, res) => {
         let token = req.query.token;
         let data = await this.database.GetUserViaToken(token);

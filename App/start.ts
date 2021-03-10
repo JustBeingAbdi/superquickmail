@@ -41,6 +41,9 @@ new Connect().connect(Config.database);
         let redirect = req.query.redirect || '/app'
         keyDB.delete();
         res.redirect(redirect);
+    });
+    app.get("/account", async(req, res) => {
+        res.redirect("/manage/account");
     })
     app.post("/users/manage/email", async(req, res) => {
         let email = req.query.email;
