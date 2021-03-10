@@ -1,7 +1,7 @@
 var userdata = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
 
 document.getElementById("app").href = `/app?redirect=app&token=${localStorage.getItem("user")}`;
-document.getElementById("account")
+document.getElementById("account").href = `/app?redirect=account&token=${localStorage.getItem("user")}`;
 
 function CheckUser() {
     let user = localStorage.getItem("user");
@@ -18,7 +18,7 @@ function CheckUser() {
 
         let notloggedin = document.getElementById("loggedin");
         notloggedin.style.visibility = "hidden";
-        loggedin.visibility = 'visable'
+        loggedin.visibility = 'visible';
         
     }, 1500)
 

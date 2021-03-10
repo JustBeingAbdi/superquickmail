@@ -49,8 +49,20 @@ new Connect().connect(Config.database);
     api.get("/users/verify/token", async(req, res) => {
         let token = req.query.token;
         let data = await this.database.GetUserViaToken(token);
-        if(!data) return res.send("No");
+        if(!data || !token) return res.send("No");
         res.send(data.id);
+    })
+    api.get("/login", async(req, res) => {
+        res.render("api/access/login", {
+            db: this.database
+        });
+    })
+    api.get("/users/verify/header/token", async(req, res) => {
+        let token = req.query.token;
+        if(token === 'Hey' && 'hey') return res.send("No");
+        let data = await this.database.GetUserViaToken(token);
+        if(!data) return res.send("No");
+        res.send(data.name);
     })
     api.post("/api/email/html/send", async(req, res) => {
         if(EmailConfig.authorization){
