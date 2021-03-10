@@ -45,6 +45,18 @@ export class Database {
         rDB.save();
         return rDB;
     }
+    public async GetUserViaEmail(email): Promise<any> {
+     let userDB = await data.user.findOne({email: email});
+        if(userDB) return userDB;
+    }
+    public async GetUser(email, password): Promise<any> {
+     let userDB = await data.user.findOne({email: email, password: password});
+        if(userDB) return userDB;
+    }
+    public async deleteKey(key): Promise<any> {
+        let keyDB = await data.redirect.findOne({key:key});
+        keyDB.delete();
+    }
 }
 
 export class Connect {

@@ -39,11 +39,14 @@ new Connect().connect(Config.database);
         let keyDB = await this.database.GetRedirect(key);
         if(!keyDB) return res.redirect("/api");
         let redirect = req.query.redirect || '/app'
-        keyDB.delete();
-        res.redirect(redirect);
+        this.database.deleteKey(key);
+        res.redirect('/' + redirect);
     });
     app.get("/account", async(req, res) => {
         res.redirect("/manage/account");
+    })
+    app.get("/login", async(req, res) => {
+        res.render("app/access/login");
     })
     app.post("/users/manage/email", async(req, res) => {
         let email = req.query.email;

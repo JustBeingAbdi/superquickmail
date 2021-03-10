@@ -53,9 +53,13 @@ new Connect().connect(Config.database);
         res.send(data.id);
     })
     api.get("/login", async(req, res) => {
+        if(!req.query.token){
         res.render("api/access/login", {
             db: this.database
         });
+    } else {
+        res.redirect(ServerConfig.appurl + `/login?token=${req.query.token}&redirect=${req.query.redirect}`)
+    }
     })
     api.get("/users/verify/header/token", async(req, res) => {
         let token = req.query.token;
@@ -159,6 +163,26 @@ new Connect().connect(Config.database);
             message: email,
             status: 200,
         });
+    })
+    api.post("/users/login", async(req, res) => {
+        let email = req.query.email;
+        let password = req.query.password;
+        let emailDB = await this.database.GetUserViaEmail(email);
+        if(!emailDB) return res.send("Email");
+        let userDB = await this.database.GetUser(email, password);
+        if(!userDB) return res.send("Password");
+        res.send(userDB.token);
+        
+    });
+    
+    api.post("/users/signup", async(req, res) => {
+        let email = req.query.email;
+        let password = req.query.password;
+        let emailDB = await this.database.GetUserViaEmail(email);
+        if(emailDB) return res.send("Email");
+        let userDB = await this.database.CreateUser(email, password);
+   
+        res.send(userDB.token);
     })
 
     api.listen(port);

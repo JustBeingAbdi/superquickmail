@@ -11,6 +11,31 @@
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
                     <p id="logintext"></p>
                 </form>
+                <a href="#" data-toggle="modal" data-target="#signup">Signup</a>
             </div>
-<script src="/js/login.js"></script>
+
+            <div id="signup" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header btn-info disabled">
+                <h4 class="modal-title">Signup</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form id="signupform">
+                    
+                    <input type="text" class="form-control" id="name" placeholder="Full Name">
+                    
+                    <input type="email" class="form-control" id="semail" placeholder="Enter Email">
+                    
+                    <input type="password" class="form-control" id="spassword" placeholder="Enter Password">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <p id="signuptext"></p>
+                </form>
+              </div>
+              <div class="modal-footer"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button></div>
+            </div>
+          </div>
+        </div>
+<script src="/js/access.js"></script>
        

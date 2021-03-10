@@ -17,7 +17,7 @@ function CheckUser() {
         document.getElementById("account1").href = `/app?redirect=account&token=${localStorage.getItem("user")}`;
         loggedin11.style.visibility = "visible";
         document.getElementById("headerlogin").style.display = "none";
-        document.getElementById("username").textContent = request.response;
+        
 
 
         
