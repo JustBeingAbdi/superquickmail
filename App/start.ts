@@ -44,7 +44,26 @@ new Connect().connect(Config.database);
     })
     app.post("/users/manage/email", async(req, res) => {
         let email = req.query.email;
+        let token = req.query.token;
+
+        let userDB = await this.database.GetUserViaToken(token);
+        if(email === userDB.email) return res.send("The Email you provided is the Same as the Email");
+        userDB.email = email;
+        userDB.save();
+        res.send("Email Changed!");
+
         
+    })
+    app.get("/manage/account/api/management", async(req, res) => {
+        let token = req.query.token;
+        if(!token) return res.redirect("/app");
+        let userDB = await this.database.GetUserViaToken(token);
+        if(!userDB) return res.redirect("/app");
+        let keys = await this.database.GetAllKeys(token);
+        res.render("app/account/api", {
+            user: userDB,
+            keys: keys
+        });
     })
 
     

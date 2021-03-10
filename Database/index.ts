@@ -33,6 +33,10 @@ export class Database {
         let rDB = await data.redirect.findOne({key: key});
         if(key) return key;
     }
+    public async GetAllKeys(token): Promise<any> {
+        let apikeyDB = await data.apikey.find({token: token});
+        if(apikeyDB) return apikeyDB;
+    }
 }
 
 export class Connect {

@@ -1,7 +1,7 @@
-var userdata = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
+var userdata = (localStorage.getItem("token")) || (localStorage.setItem("token", false));
 
 function CreateApiKey() {
-    window.location.assign("/manage/account/api/management");
+    window.location.assign("/manage/account/api/management?token=" + localStorage.getItem("token"));
 }
 
 
