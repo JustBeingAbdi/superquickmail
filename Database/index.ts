@@ -7,7 +7,9 @@ export class Database {
     public async CreateUser(email, password): Promise<any> {
         let userDB = new data.user({
             email: email,
-            password: password
+            password: password,
+            rcode: srs({length:40}),
+            verified: false,
         });
         userDB.save();
         return userDB;
@@ -56,6 +58,15 @@ export class Database {
     public async deleteKey(key): Promise<any> {
         let keyDB = await data.redirect.findOne({key:key});
         keyDB.delete();
+    }
+    public async verified(rcode): Promise<any> {
+        let userDB = await data.user.findOne({rcode: rcode});
+        if(userDB){
+            userDB.verified = true;
+            userDB.rcode = 'false';
+            userDB.save();
+            return userDB;
+        }
     }
 }
 

@@ -6,7 +6,7 @@ function CreateApiKey() {
 
 
 function CheckUser() {
-    let user = localStorage.getItem("user");
+    let user = localStorage.getItem("token");
     
     
     if(user === 'false') return;
@@ -20,3 +20,4 @@ function CheckUser() {
     }, 1500);
 
 }
+CheckUser();

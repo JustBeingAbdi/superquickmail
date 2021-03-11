@@ -69,26 +69,15 @@ new Connect().connect(Config.database);
         res.send(data.name);
     })
     api.post("/api/email/html/send", async(req, res) => {
-        if(EmailConfig.authorization){
-        let authorization = req.headers.authorization;
-        if(!authorization) return res.status(401).send({
-            message: "Invalid Authorization",
-            status: 401
-        });
-        let data = await this.database.GetUser(authorization);
-        if(!data) return res.status(401).send({
-            message: "Invalid Authorization",
-            status: 401
-        });
-    }
-        let to = req.query.to;
-        let from = req.query.from;
-        let subject = req.query.subject;
+        
+        let to = req.body.to;
+        let from = req.body.from
+        let subject = req.body.subject
 
 
-        let body = req.body;
+        let body = req.body.message
         if(!body) return res.status(401).end();
-        let email = await this.mail.SendMailHTMl(from, to, subject, req.body);
+        let email = await this.mail.SendMailHTMl(from, to, subject, body);
         if(email === 404) return res.status(404).send({
             message: "Invalid Query's"
         })
@@ -131,12 +120,12 @@ new Connect().connect(Config.database);
     }
         let to = req.query.to;
         let from = req.query.from;
-        let subject = req.query.subject;
+        let subject = req.body.subject || null
 
 
-        let body = req.body;
+        let body = req.body.message;
         if(!body) return res.status(401).end();
-        let email = await this.mail.SendMailTEXT(from, to, subject, req.body);
+        let email = await this.mail.SendMailTEXT(from, to, subject, body);
         if(email === 404) return res.status(404).send({
             message: "Invalid Query's"
         })
@@ -152,7 +141,7 @@ new Connect().connect(Config.database);
         let to = req.query.to;
         let from = req.query.from;
         
-        let subject = req.query.subject;
+        let subject = req.query.subject
 
 
         let body = req.query.body
@@ -181,8 +170,9 @@ new Connect().connect(Config.database);
         let emailDB = await this.database.GetUserViaEmail(email);
         if(emailDB) return res.send("Email");
         let userDB = await this.database.CreateUser(email, password);
+        
    
-        res.send(userDB.token);
+        res.send(`${userDB.token} ${userDB.rcode}`);
     })
 
     api.listen(port);

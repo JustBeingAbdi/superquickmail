@@ -1,4 +1,4 @@
-var data = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
+var datauser = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
 
 
 function CheckUser() {
@@ -57,10 +57,26 @@ function Signup() {
     request.open("POST", `/users/signup?email=${email}&password=${password}`);
     request.send(name);
 
+    
+
     setTimeout(function() {
-        let respons = request.response;
-        if(respons === 'Email') return document.getElementById("signuptext").textContent = "The Email is already used in another account!";
-        localStorage.setItem("user", respons);
+        let responss = request.response;
+        let respons = responss.split(" ");
+        if(responss === 'Email') return document.getElementById("signuptext").textContent = "The Email is already used in another account!";
+        localStorage.setItem("user", respons[0]);
+        let verification = new XMLHttpRequest();
+        verification.open("POST", `/api/email/html/send`);
+        let data = {
+            from: "SuperQuickMail",
+            to: email,
+            subject: "Verification",
+            message: `<a href="https://${window.location.hostname}/verify?key=${respons[1]}">Reset Password </a>`
+        };
+        verification.send(data);
+        setTimeout(function() {
+            console.log(verification.response)
         window.location.assign(`/login?token=${respons}&redirect=${window.location.hostname}`);
+        }, 2000)
+       
     }, 1500)
 }
