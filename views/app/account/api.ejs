@@ -9,7 +9,26 @@
         <p><%= x.key %></p> <button id="<%= x.key %>" type="button" class="btn btn-danger" onclick="DeleteApiKey()"><i class="fas fa-trash-alt"></i> Delete</button>
         
 <% }) %>
+<a href="#" data-toggle="modal" onclick="CreateApiKey()" data-target="#capikey" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create Api Key</a>
 </div>
+
+<div id="capikey" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header btn-info disabled">
+                <h4 class="modal-title">Api Key</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p id="loading"><i class="fas fa-spinner"></i> Creating...</p>
+                <p id="apikey"></p>
+                <p id="apikey2"></p>
+              </div>
+              <div class="modal-footer"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button></div>
+            </div>
+          </div>
+        </div>
 <script src="/js/app.js"></script>
+<script src="/js/apikey.js"></script>
 
        

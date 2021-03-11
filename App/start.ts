@@ -13,6 +13,7 @@ export class App {
     public mail: Mail = new Mail();
     public async init(port): Promise<any> {
 new Connect().connect(Config.database);
+
     
     let app = express();
 
@@ -27,6 +28,7 @@ new Connect().connect(Config.database);
     app.get("/", async(req, res) => {
         res.redirect("/app");
     })
+
     app.get("/app", async(req, res) => {
         res.render("app/app");
     })
@@ -108,6 +110,15 @@ new Connect().connect(Config.database);
         });
         
     });
+    app.get("/apikey/create", async(req, res) => {
+        let token = req.query.token;
+        if(!token || token === 'false') return res.send("No");
+        let userDB = await this.database.GetUserViaToken(token);
+        if(!userDB) return res.send("No");
+        let keyDB = await this.database.CreateApiKey(token);
+        res.send(keyDB.key);
+
+    })
     
 
     app.listen(port);
