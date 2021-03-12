@@ -37,7 +37,7 @@ function CheckCookie() {
 
     };
     if(localStorage.getItem("cookies") === 'false'){
-        return window.location.assign("https://cookies.superquickmail.cf");
+        return window.location.assign("https://cookies.superquickemail.cf");
     };
 
     
