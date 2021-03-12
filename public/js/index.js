@@ -23,12 +23,6 @@ function CheckUser() {
     
 }
 CheckUser();
-
-
-
-
-
-
 function CheckCookie() {
     let urlParams = new URLSearchParams(window.location.search);
     let cookiesscan = urlParams.get("cookies");
