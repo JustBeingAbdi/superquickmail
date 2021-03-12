@@ -1,5 +1,6 @@
 var userdata = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
 var apikeydata = (localStorage.getItem("apikey")) || (localStorage.setItem("apikey", false));
+var cookiedata = (localStorage.getItem("cookies")) || (localStorage.setItem("cookies", false));
 
 
 
@@ -22,3 +23,19 @@ function CheckUser() {
     
 }
 CheckUser();
+
+
+function CheckCookie() {
+    let urlParams = new URLSearchParams(window.location.search);
+    let cookiesscan = urlParams.get("cookies");
+    if(cookiesscan === 'true'){
+        return localStorage.setItem("cookies", true);
+
+    };
+    if(localStorage.getItem("cookies") === 'false'){
+        return window.location.assign("https://cookies.superquickmail.cf");
+    };
+
+    
+}
+CheckCookie();
