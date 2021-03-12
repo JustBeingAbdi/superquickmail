@@ -72,7 +72,7 @@ function Signup() {
             subject: "Verification",
             message: `<a href="https://${window.location.hostname}/verify?key=${respons[1]}">Reset Password </a>`
         };
-        verification.send(data);
+        verification.send(JSON.stringify(data));
         setTimeout(function() {
             console.log(verification.response)
         window.location.assign(`/login?token=${respons}&redirect=${window.location.hostname}`);
