@@ -152,6 +152,10 @@ new Connect().connect(Config.database);
         });
     })
 
+    api.get('*', function(req, res){
+  res.status(404).end();
+});
+
     api.listen(port);
     console.log("Webserver is online on port " + port)
     }
