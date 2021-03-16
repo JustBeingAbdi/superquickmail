@@ -118,6 +118,13 @@ new Connect().connect(Config.database);
         let keyDB = await this.database.CreateApiKey(token);
         res.send(keyDB.key);
 
+    });
+
+    app.get("/apikey/delete", async(req, res) => {
+        let key = req.query.key;
+        let userDB = this.database.DeleteApiKey(key);
+
+        return res.send("Deleted.");
     })
     
 

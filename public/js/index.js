@@ -14,13 +14,14 @@ function CheckUser() {
     request.send();
 
     setTimeout(function() {
-        if(request.response === 'No') return;
+        if(request.response === 'No') return console.log("User is not logged in")
 
-        let notloggedin = document.getElementById("loggedin");
+        let notloggedin = document.getElementById("notloggedin");
         notloggedin.style.visibility = "hidden";
-        loggedin.visibility = 'visible';
+        document.getElementById("loggedin").style.visibility = "visible"
         
-    }, 1500)
+    }, 1500);
+    
 
     
 }

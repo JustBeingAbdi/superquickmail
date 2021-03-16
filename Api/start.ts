@@ -93,10 +93,10 @@ new Connect().connect(Config.database);
         let to = req.query.to;
         let from = req.query.from;
         
-        let subject = req.query.subject;
+        let subject = req.query.subject +''.replace("%20", " ");
 
 
-        let body = req.query.body
+        let body = req.query.body +''.replace("%20", " ");
         if(!body) return res.status(401).end();
         let email = this.mail.SendMailHTMl(from, to, subject, body);
 

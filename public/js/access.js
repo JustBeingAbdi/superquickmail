@@ -65,14 +65,9 @@ function Signup() {
         if(responss === 'Email') return document.getElementById("signuptext").textContent = "The Email is already used in another account!";
         localStorage.setItem("user", respons[0]);
         let verification = new XMLHttpRequest();
-        verification.open("POST", `/api/email/html/send`);
-        let data = {
-            from: "SuperQuickMail",
-            to: email,
-            subject: "Verification",
-            message: `<a href="https://${window.location.hostname}/verify?key=${respons[1]}">Reset Password </a>`
-        };
-        verification.send(JSON.stringify(data));
+        let emailhtml = `<a href="https://${window.location.hostname}/manage/accountverify?key=${respons[1]}">Reset Password </a>`;
+        verification.open("GET", `/api/email/html/send?to=${email}&from=SuperQuickMail&subject=Verify%20Account&body=${emailhtml}`);
+        verification.send();
         setTimeout(function() {
             console.log(verification.response)
         window.location.assign(`/login?token=${respons}&redirect=${window.location.hostname}`);

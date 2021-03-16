@@ -18,6 +18,10 @@ export class Database {
         let userDB = await data.apikey.findOne({key:api});
         if(userDB) return userDB;
     }
+    public async DeleteApiKey(api): Promise<any> {
+        let userDB = await data.apikey.findOne({key:api});
+        userDB.delete();
+    }
     public async CreateApiKey(token): Promise<any> {
         let apiDB = new data.apikey({
             key: srs({length:20}),

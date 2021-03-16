@@ -22,3 +22,6 @@ function SaveEmail() {
 
     }, 1500)
 }
+function SavePassword() {
+    let currentpassword = document.getElementById("cupassword").value;
+}

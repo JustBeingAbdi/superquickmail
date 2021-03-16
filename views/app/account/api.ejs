@@ -5,11 +5,25 @@
 <div id="main" class="container text-center text-light" style="padding-top: 110px; padding-bottom: 20px;">
     
         <h2>Api Keys</h2>
+        
         <% keys.map(x => { %>
-        <p><%= x.key %></p> <button id="<%= x.key %>" type="button" class="btn btn-danger" onclick="DeleteApiKey()"><i class="fas fa-trash-alt"></i> Delete</button>
+            <form id="<%= x.key %>form">
+        <p><%= x.key %></p> <button id="<%= x.key %>" type="button" class="btn btn-danger" onclick="DeleteApiKey('<%= x.key %>')"><i class="fas fa-trash-alt"></i> Delete</button>
+        <script>
+            document.getElementById('<%= x.key %>').addEventListener("submit", function(event) {
+    event.preventDefault();
+
+});
+
+        </script>
+        </form>
         
 <% }) %>
-<a href="#" data-toggle="modal" onclick="CreateApiKey()" data-target="#capikey" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create Api Key</a>
+  
+   
+
+
+<a id="capikey11" href="#" data-toggle="modal" onclick="CreateApiKey()" data-target="#capikey" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Create Api Key</a>
 </div>
 
 <div id="capikey" class="modal fade" role="dialog">
