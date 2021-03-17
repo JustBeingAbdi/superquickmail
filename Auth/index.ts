@@ -18,8 +18,7 @@ export class GoogleOuath {
     return oauth2Client.generateAuthUrl({
       access_type: 'offline',
       prompt: 'consent',
-      scope: scopes, 
-      response_type: 'code'
+      scope: scopes,
     });
         
     }
