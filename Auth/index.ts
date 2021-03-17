@@ -15,13 +15,7 @@ export class GoogleOuath {
       'https://www.googleapis.com/auth/userinfo.email',
     ];
 
-    return oauth2Client.generateAuthUrl({
-      access_type: 'offline',
-      prompt: 'consent',
-      scope: scopes,
-      response_type: 'code',
-      
-    }).replace("amp;", "");
+    return `https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&amp;prompt=consent&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&response_type=code&client_id=${OuathConfig.google_clientID}&redirect_uri=${OuathConfig.google_callback}`
         
     }
 
