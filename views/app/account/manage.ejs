@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <meta name="propeller" content="da3fdafeb3a0f1ea42befd9f24edd1d3">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A Email api for you to send an email in 123">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="TCad">
+  <meta property="og:url" content="https://superquickemail.cf">
+  <meta property="og:description" content="A Email api for you to send an email in 123">
+  <meta name="msapplication-TileColor" content="#2c75ff">
+  <meta name="keywords" content="Email, Mail, Github, Api, Public">
+  <meta property="og:type" content="object">
+  <meta property="og:image" content="">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="SuperQuickMail">
+  <link rel="apple-touch-icon-precomposed" href="">
+  <meta name="msapplication-TileImage" content="">
+  <meta name="theme-color" content="#2c75ff">
+  <link rel="shortcut icon" href="">
+  <meta name="abuseipdb-verification" content="">
+
+
+    <link rel="icon" href="">
+
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Karla&family=Montserrat&display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
+    </head>
+    <body style="margin:0;">
+        
+        
+
+
+    <nav id="nav" class="navbar navbar-expand-lg fixed-top shadow navbar-dark" style="background-color: rgb(0, 17, 255);">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <h2>SuperQuickMail</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                          <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://api.superquickemail.cf">Api Docs</a> 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://github.com/JustBeingAbdi/superquickmail">Github</a>
+                    </li>
+                </ul>
+                 
+                    <ul  class="navbar-nav">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <img src="/images/account.jpg" class="rounded-circle" height="42" alt="Avatar"/> <span style="padding-left: 10px;">Account</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><h6 class="dropdown-header">Menu</h6></li>
+                            <li><a class="dropdown-item" href="/manage/account"><i class="far fa-user"></i>Manage Account</a></li>
+                            <li><a class="dropdown-item" href="/app"><i class="fas fa-server"></i> Dashboard</a></li>
+                            <hr>
+                            <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/app.css">
+<title> Manage Account - SuperQuickMail </title>
+
+<div id="main" class="container text-center text-light" style="padding-top: 110px; padding-bottom: 20px;">
+    
+        <h2>Manage Account</h2>
+        <form id="femail">
+            <input id="email" type="email" placeholder="Enter Email">
+            <input id="vemail" type="email" placeholder="Verify Email">
+            <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
+            <p id="emailtext"></p>
+        </form>
+
+
+        <h2>Manage Password</h2>
+        <a href="#" data-toggle="modal" data-target="#changepassword" type="button" class="btn btn-primary">Change Password</a>
+        <p id="manage_password"></p>
+
+
+
+
+        
+
+
+        
+
+        
+
+</div>
+
+
+<div id="changepassword" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header btn-info disabled">
+                <h4 class="modal-title">Change Password</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form id="changep">
+                    <input id="password" class="form-control" type="password" placeholder="Enter New Password">
+                    <input id="confirm_password" class="form-control" type="password" placeholder="Confirm Password">
+                    <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
+                    <p id="change_password_text"></p>
+                </form>
+              </div>
+              <div class="modal-footer"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button></div>
+            </div>
+          </div>
+        </div>
+<script src="/js/app.js"></script>
+<script src="/js/account.js"></script>
+
+</body>
+</html>
+
+       

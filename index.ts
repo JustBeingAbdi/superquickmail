@@ -1,10 +1,16 @@
 import {Api} from "./Api/start";
+import {App} from "./App/start";
 import {ServerConfig } from "./lib";
-let Webserver = new Api();
+let ApiServer = new Api();
+let AppServer = new App();
+
 if(ServerConfig.multiservers){
 ServerConfig.ports.forEach(x => {
-Webserver.init(x);
+ApiServer.init(x);
 })
 } else {
-    Webserver.init(ServerConfig.defaultport)
+    ApiServer.init(ServerConfig.defaultport)
 }
+
+
+AppServer.init(ServerConfig.appport);
