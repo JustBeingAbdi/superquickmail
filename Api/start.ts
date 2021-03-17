@@ -1,4 +1,5 @@
 import express from "express";
+import ExpressLogger from "leekslazylogger-express";
 import nodemailer from "nodemailer";
 import {Database, Connect} from "./../Database";
 import * as Config from "../lib/DefaultConfig";
@@ -19,7 +20,12 @@ export class Api {
 new Connect().connect(Config.database);
     
     let api = express();
+    const log = new ExpressLogger({
+    name: 'SuperQuickMail',
+});
+
     api.use(bodyparser.json());
+    api.use(log.express());
     api.use(bodyparser.urlencoded({ extended: true }));
     api.engine("html", ejs.renderFile);
     api.set('view engine', 'ejs');
@@ -243,6 +249,10 @@ res.redirect("/login?message=email_reg_ouath");
             config: ServerConfig
         });
     })
+
+    api.get('*', function(req, res){
+  res.status(404).end();
+});
 
     api.listen(port);
     console.log("Webserver is online on port " + port)
