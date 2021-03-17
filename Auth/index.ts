@@ -19,6 +19,8 @@ export class GoogleOuath {
       access_type: 'offline',
       prompt: 'consent',
       scope: scopes,
+      response_type: 'code',
+      
     });
         
     }

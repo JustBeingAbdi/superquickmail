@@ -128,7 +128,7 @@ res.redirect("/login?message=email_reg_ouath");
             db: this.database,
             client_id: OuathConfig.github_clientID,
             config: OuathConfig,
-            google: googlel +'&response_type=code',
+            google: googlel,
         });
     } else {
         res.redirect(ServerConfig.appurl + `/login?token=${req.query.token}&redirect=${req.query.redirect}`)
