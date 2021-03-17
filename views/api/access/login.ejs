@@ -15,16 +15,11 @@
 
                 <h2>Login/Signup with Ouath</h2>
 
-                <button type="button" class="btn btn-primary" onclick="window.location.assign(`<%= config.github %><%= client_id %>`)"><i class="fab fa-github"></i> Github</button><button type="button" class="btn btn-primary" onclick="GoogleLogin()"><i class="fab fa-google"></i> Google</button>
+                <button type="button" class="btn btn-primary" onclick="window.location.assign(`<%= config.github %><%= client_id %>`)"><i class="fab fa-github"></i> Github</button><button type="button" class="btn btn-primary" onclick="window.location.assign('<%= google %>');"><i class="fab fa-google"></i> Google</button>
             </div>
             
             
-            <script>
-            function GoogleLogin() {
-            window.location.assign('<%= google %>');
-            }
             
-            </script>
 
             <div id="signup" class="modal fade" role="dialog">
           <div class="modal-dialog">
