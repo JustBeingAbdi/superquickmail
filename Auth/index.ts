@@ -1,46 +1,47 @@
 import { OuathConfig, ServerConfig } from "../lib";
+import { google } from 'googleapis';
+const oauth2Client = new google.auth.OAuth2(
+  OuathConfig.google_clientID,
+  OuathConfig.google_clientSecret,
+  `${OuathConfig.google_callback}`,
+);
 import querystring from "querystring";
 import axios from "axios";
 export class GoogleOuath {
     public async getGoogleAuthURL(): Promise<any> {
-        const baseUrl = 'https://accounts.google.com/o/ouath2/v2/auth';
-        const options = {
-            redirect_uri: `${ServerConfig.apiurl}/ouath/google/callback`,
-            client_id: OuathConfig.google_clientID,
-            access_type: 'offline',
-            response_type: 'code',
-            prompt: 'consent',
-            scope: [
-                'https://www.googleapis.com/auth/userinfo.profile',
-                'https://www.googleapis.com/auth/userinfo.email',
+        
+    const scopes = [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email',
+    ];
 
-            ].join(' '),
-        };
-
-        return `${baseUrl}?${querystring.stringify(options)}`;
+    return oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      prompt: 'consent',
+      scope: scopes, 
+    });
         
     }
 
     public async GetUser(code): Promise<any>  {
-        const url = "https://ouath2.googleapis.com/token";
-        const values = {
-            code,
-            client_id: OuathConfig.google_clientID,
-            client_secret: OuathConfig.google_clientSecret,
-            redirect_uri: `${ServerConfig.apiurl}/ouath/google/callback`,
-            grant_type: 'authorization_code',
-        };
+        const { tokens } = await oauth2Client.getToken(code);
 
+  // Fetch the user's profile with the access token and bearer
+  const googleUser = await axios
+    .get(
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${tokens.access_token}`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokens.id_token}`,
+        },
+      },
+    )
+    .then(res => res.data)
+    .catch(error => {
+      throw new Error(error.message);
+    });
 
-        return axios.post(url, querystring.stringify(values), {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        })
-        .then((res) => res.data)
-        .catch((error) => {
-            throw new Error(error.message);
-        })
+  return googleUser;
     }
 
     
