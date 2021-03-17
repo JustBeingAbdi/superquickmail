@@ -21,7 +21,7 @@ export class GoogleOuath {
       scope: scopes,
       response_type: 'code',
       
-    });
+    }).replace("amp;", "");
         
     }
 
