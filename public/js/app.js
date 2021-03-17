@@ -10,7 +10,7 @@ function CheckUser() {
     let user = localStorage.getItem("token");
     
     
-    if(user === 'false') return;
+    if(user === 'false') return window.location.assign("/api");
     let request = new XMLHttpRequest();
     request.open("GET", `/users/verify/token?token=${user}`);
     request.send();
