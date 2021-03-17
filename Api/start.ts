@@ -7,7 +7,9 @@ import bodyparser from "body-parser";
 import path from "path";
 import ejs from "ejs";
 import srs from "secure-random-string";
-import {DefaultConfig, EmailConfig, ServerConfig } from "./../lib";
+import axios from "axios";
+import {DefaultConfig, EmailConfig, ServerConfig, OuathConfig } from "./../lib";
+
 export class Api {
     public database: Database = new Database();
     public mail: Mail = new Mail();
@@ -45,7 +47,52 @@ new Connect().connect(Config.database);
         res.redirect(`${ServerConfig.appurl}/api/redirect?key=${keyDB.key}&redirect=${redirect}`);
 
 
+    });
+    api.get("/ouath/github/callback", async(req, res) => {
+        var access_token;
+ const requestToken = req.query.code
+  
+  axios({
+    method: 'post',
+    url: `https://github.com/login/oauth/access_token?client_id=${OuathConfig.github_clientID}&client_secret=${OuathConfig.github_clientsecret}&code=${requestToken}`,
+    // Set the content type header, so that we get the response in JSON
+    headers: {
+         accept: 'application/json'
+    }
+  }).then((response1) => {
+    access_token = response1.data.access_token;
+    axios({
+    method: 'get',
+    url: `https://api.github.com/user`,
+    headers: {
+      Authorization: 'token ' + access_token
+    }
+  }).then(async(response) => {
+      let user = await this.database.GetUserViaEmail(response.data.email);
+      if(user){
+          if(!user.ouath){
+res.redirect("/login?message=email_reg_ouath");
+      }
+    }
+      if(!user){
+          user = await this.database.CreateUser(response.data.email, "Ouath");
+      }
+
+      user.ouath = true;
+      user.save();
+
+    res.render('api/access/ouath/github',{ user: response.data, token: user.token });
+  })
+    
+  })
+
+    });
+
+    api.get("/ouath/github/login", async(req, res) => {
+        
     })
+
+    
     api.get("/users/verify/token", async(req, res) => {
         let token = req.query.token;
         let data = await this.database.GetUserViaToken(token);
@@ -55,7 +102,9 @@ new Connect().connect(Config.database);
     api.get("/login", async(req, res) => {
         if(!req.query.token){
         res.render("api/access/login", {
-            db: this.database
+            db: this.database,
+            client_id: OuathConfig.github_clientID,
+            config: OuathConfig
         });
     } else {
         res.redirect(ServerConfig.appurl + `/login?token=${req.query.token}&redirect=${req.query.redirect}`)
@@ -112,11 +161,7 @@ new Connect().connect(Config.database);
             message: "Invalid Authorization",
             status: 401
         });
-        let data = await this.database.GetUser(authorization);
-        if(!data) return res.status(401).send({
-            message: "Invalid Authorization",
-            status: 401
-        });
+    
     }
         let to = req.query.to;
         let from = req.query.from;

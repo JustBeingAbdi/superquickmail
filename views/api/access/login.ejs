@@ -12,6 +12,10 @@
                     <p id="logintext"></p>
                 </form>
                 <a href="#" data-toggle="modal" data-target="#signup">Signup</a>
+
+                <h2>Login/Signup with Ouath</h2>
+
+                <button type="button" class="btn btn-primary" onclick="window.location.assign(`<%= config.github %><%= client_id %>`)"><i class="fab fa-github"></i> Github</button>
             </div>
 
             <div id="signup" class="modal fade" role="dialog">
@@ -29,7 +33,7 @@
                     <input type="email" class="form-control" id="semail" placeholder="Enter Email">
                     
                     <input type="password" class="form-control" id="spassword" placeholder="Enter Password">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Signup</button>
                     <p id="signuptext"></p>
                 </form>
               </div>

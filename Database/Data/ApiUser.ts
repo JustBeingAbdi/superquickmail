@@ -7,7 +7,8 @@ export interface IApiUser extends Document {
     email:string,
     password:string,
     verified:boolean,
-    rcode:string
+    rcode:string,
+    ouath:boolean
     
     
 
@@ -20,6 +21,7 @@ export const ApiUserS: Schema = new Schema({
     password: { type: String},
     verified: { type: Boolean },
     rcode: { type: String},
+    ouath: { type: Boolean, default: false},
 })
 
 
