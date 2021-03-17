@@ -9,10 +9,12 @@ import ejs from "ejs";
 import srs from "secure-random-string";
 import axios from "axios";
 import {DefaultConfig, EmailConfig, ServerConfig, OuathConfig } from "./../lib";
+import {GoogleOuath} from "./../Auth";
 
 export class Api {
     public database: Database = new Database();
     public mail: Mail = new Mail();
+    public google: GoogleOuath = new GoogleOuath();
     public async init(port): Promise<any> {
 new Connect().connect(Config.database);
     
@@ -88,8 +90,22 @@ res.redirect("/login?message=email_reg_ouath");
 
     });
 
-    api.get("/ouath/github/login", async(req, res) => {
-        
+    api.get("/ouath/google/callback", async(req, res) => {
+        if(!req.query.code) return res.redirect("/login?message=No+Authorization+Token");
+        let google_login = await this.google.GetUser(req.query.code);
+        let userDB = await this.database.GetUserViaEmail(google_login.email);
+        if(userDB){
+            if(!userDB.ouath){
+                return res.redirect("/login?message=email_reg_ouath");
+            }
+        }
+        if(!userDB){
+            userDB = await this.database.CreateUser(google_login.email, 'Ouath');
+            userDB.ouath = true;
+            userDB.save();
+        }
+
+        res.render("api/access/ouath/google", {userData: google_login, token: userDB.token});
     })
 
     
