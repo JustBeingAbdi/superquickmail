@@ -1,7 +1,6 @@
 var userdata = (localStorage.getItem("user")) || (localStorage.setItem("user", false));
 
-document.getElementById("app").href = `/app?redirect=app&token=${localStorage.getItem("user")}`;
-document.getElementById("account").href = `/app?redirect=account&token=${localStorage.getItem("user")}`;
+
 
 function CheckUser() {
     let user = localStorage.getItem("user");
@@ -18,7 +17,11 @@ function CheckUser() {
 
         let notloggedin = document.getElementById("notloggedin");
         notloggedin.style.visibility = "hidden";
-        document.getElementById("loggedin").style.visibility = "visible"
+        document.getElementById("loggedin").style.visibility = "visible";
+
+document.getElementById("app").href = `/app?redirect=app&token=${localStorage.getItem("user")}`;
+document.getElementById("account").href = `/app?redirect=account&token=${localStorage.getItem("user")}`;
+document.getElementById("logout").href = `/logout?key=${localStorage.getItem("user")}&host=https://${window.location.hostname}`;
         
     }, 1500);
     

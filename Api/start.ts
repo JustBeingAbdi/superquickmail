@@ -174,6 +174,12 @@ new Connect().connect(Config.database);
    
         res.send(`${userDB.token} ${userDB.rcode}`);
     })
+    api.get("/logout", async(req, res) => {
+        
+        res.render("api/access/logout", {
+            config: ServerConfig
+        });
+    })
 
     api.listen(port);
     console.log("Webserver is online on port " + port)

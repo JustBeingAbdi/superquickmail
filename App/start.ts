@@ -51,6 +51,12 @@ new Connect().connect(Config.database);
     })
     app.get("/login", async(req, res) => {
         res.render("app/access/login");
+    });
+    app.get("/logout", async(req, res) => {
+        
+        res.render("app/access/logout", {
+            config: ServerConfig
+        });
     })
     app.post("/users/manage/email", async(req, res) => {
         let email = req.query.email;
@@ -62,6 +68,20 @@ new Connect().connect(Config.database);
         userDB.save();
         res.send("Email Changed!");
 
+        
+    });
+    app.post("/users/manage/password", async(req, res) => {
+        let password = req.query.password;
+        let token = req.query.token;
+        if(token === 'false' || !token) return res.send("No");
+        let userDB = await this.database.GetUserViaToken(token);
+        if(!userDB) return res.send("No");
+        res.send("Password Changed!");
+        
+
+        
+            userDB.password = password;
+            userDB.save();
         
     })
     app.get("/users/verify/token", async(req, res) => {

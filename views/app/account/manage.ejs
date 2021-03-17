@@ -96,7 +96,8 @@
 
 
         <h2>Manage Password</h2>
-        <a href="#" data-toggle="modal" data-target="#changepassword" type="button" class="btn btn-primary">Change Password</a><a href="#"  type="button" class="btn btn-primary">Reset Password</a>
+        <a href="#" data-toggle="modal" data-target="#changepassword" type="button" class="btn btn-primary">Change Password</a><a href="#"  type="button" onclick="resetPassword()" class="btn btn-primary">Reset Password</a>
+        <p id="manage_password"></p>
 
 
 
@@ -119,7 +120,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                
+                <form id="changep">
+                    <input id="password" class="form-control" type="password" placeholder="Enter New Password">
+                    <input id="confirm_password" class="form-control" type="password" placeholder="Confirm Password">
+                    <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
+                    <p id="change_password_text"></p>
+                </form>
               </div>
               <div class="modal-footer"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button></div>
             </div>

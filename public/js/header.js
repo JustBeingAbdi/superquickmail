@@ -15,6 +15,7 @@ function CheckUser() {
         if(request.response === 'No') return;
         document.getElementById("app1").href = `/app?redirect=app&token=${localStorage.getItem("user")}`;
         document.getElementById("account1").href = `/app?redirect=account&token=${localStorage.getItem("user")}`;
+        document.getElementById("logout1").href = `/logout?key=${localStorage.getItem("user")}&host=https://${window.location.hostname}`;
         loggedin11.style.visibility = "visible";
         document.getElementById("headerlogin").style.display = "none";
         

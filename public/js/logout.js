@@ -1,19 +1,4 @@
-<html>
-    <head>
-        <title>LogOut</title>
-        <style>
-            body {
-                text-align: center;
-            }
-        </style>
-    </head>
-
-    <body>
-        <p>Logging out....</p>
-
-
-        <script>
-           let urlpara = new URLSearchParams(window.location.search);
+let urlpara = new URLSearchParams(window.location.search);
 
 let token = urlpara.get("key");
 let host = urlpara.get("host");
@@ -21,7 +6,7 @@ let redirect = urlpara.get("redirect");
 
 
 
-if(host === "<%= config.appurl %>"){
+if(host === "<%= config.appurl %>".replace("https://", "").replace("/", "")){
 
     localStorage.setItem("token", false);
     if(!redirect){
@@ -31,7 +16,7 @@ if(host === "<%= config.appurl %>"){
     }
 }
 
-if(host === "<%= config.apiurl %>"){
+if(host === "<%= config.apiurl %>".replace("https://", "").replace("/", "")){
 
     localStorage.setItem("user", false);
     if(!redirect){
@@ -40,8 +25,3 @@ if(host === "<%= config.apiurl %>"){
         window.location.assign("/?message=logged_out");
     }
 }
-
-
-        </script>
-    </body>
-</html>

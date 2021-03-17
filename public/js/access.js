@@ -65,7 +65,8 @@ function Signup() {
         if(responss === 'Email') return document.getElementById("signuptext").textContent = "The Email is already used in another account!";
         localStorage.setItem("user", respons[0]);
         let verification = new XMLHttpRequest();
-        let emailhtml = `<a href="https://${window.location.hostname}/manage/accountverify?key=${respons[1]}">Reset Password </a>`;
+        let vhtml = `https://${window.location.hostname}/manage/account/verify?key=${respons[1]}`
+        let emailhtml = `<h2>Verify Account</h2>\n\n<p>To contiue using our services after 72 hours, you have to verify your account.</p>\n<p>Click the Link below to verify</p>\n\n<a href="${vhtml}">Verify Email</a>\n\n\nSincerly SuperQuickMail\n\n<p>if your unable to click the link above manually copy and paste this link into a browser ${vhtml}`;
         verification.open("GET", `/api/email/html/send?to=${email}&from=SuperQuickMail&subject=Verify%20Account&body=${emailhtml}`);
         verification.send();
         setTimeout(function() {
