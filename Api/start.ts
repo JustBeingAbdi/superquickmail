@@ -134,6 +134,13 @@ res.redirect("/login?message=email_reg_ouath");
         res.redirect(ServerConfig.appurl + `/login?token=${req.query.token}&redirect=${req.query.redirect}`)
     }
     })
+    api.get("/login/ouath", async(req, res) => {
+        let googlel = await this.google.getGoogleAuthURL();
+        res.render("api/access/ouath/index", {
+            github: OuathConfig.github + OuathConfig.github_clientID,
+            google: googlel
+        })
+    })
     api.get("/users/verify/header/token", async(req, res) => {
         let token = req.query.token;
         if(token === 'Hey' && 'hey') return res.send("No");

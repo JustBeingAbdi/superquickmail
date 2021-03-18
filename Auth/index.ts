@@ -7,6 +7,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 import querystring from "querystring";
 import axios from "axios";
+import { response } from "express";
 export class GoogleOuath {
     public async getGoogleAuthURL(): Promise<any> {
         
@@ -42,5 +43,10 @@ export class GoogleOuath {
 
     
 
+    
+}
+
+export class FacebookOuath {
+    
     
 }
