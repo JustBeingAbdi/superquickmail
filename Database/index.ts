@@ -63,14 +63,48 @@ export class Database {
         let keyDB = await data.redirect.findOne({key:key});
         keyDB.delete();
     }
-    public async verified(rcode): Promise<any> {
-        let userDB = await data.user.findOne({rcode: rcode});
-        if(userDB){
+    public async verified(key): Promise<any> {
+        let auserDB = await data.auser.findOne({key: key});
+        
+        if(auserDB){
+            if(auserDB.type !== 'verify') return false;
+            let userDB = await data.user.findOne({token: auserDB.token});
             userDB.verified = true;
-            userDB.rcode = 'false';
             userDB.save();
-            return userDB;
+            auserDB.delete();
+            return true;
+        } else {
+            return false;
         }
+    }
+    public async CreateReset_Verify(token, type): Promise<any> {
+        if(type === 'verify'){
+            let auserDB = new data.auser({
+                key: srs({length:40}),
+                token: token,
+                type: 'verify'
+            });
+            auserDB.save();
+            return auserDB;
+        } else {
+            let auserDB = new data.auser({
+                key: srs({length:50}),
+                token: token,
+                type: 'reset'
+            });
+            auserDB.save();
+            return auserDB;
+        }
+    }
+    public async reset(key): Promise<any> {
+        let auserDB = await data.auser.findOne({key: key});
+        if(auserDB){
+            if(auserDB.type !== 'reset') return false;
+            let token = auserDB.token;
+            auserDB.delete();
+            return token;
+            
+        } else return false;
     }
 }
 

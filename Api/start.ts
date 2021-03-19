@@ -246,10 +246,20 @@ res.redirect("/login?message=email_reg_ouath");
         let emailDB = await this.database.GetUserViaEmail(email);
         if(emailDB) return res.send("Email");
         let userDB = await this.database.CreateUser(email, password);
+        let auserDB = await this.database.CreateReset_Verify(userDB.token, 'verify');
         
    
-        res.send(`${userDB.token} ${userDB.rcode}`);
-    })
+        res.send(`${userDB.token} ${auserDB.key}`);
+    });
+    api.post("/users/manage/reset-password", async(req, res) => {
+        let email = req.query.email;
+        let userDB = await this.database.GetUserViaEmail(email);
+        if(!userDB) return res.send("Email");
+        let auserDB = await this.database.CreateReset_Verify(userDB.token, 'reset');
+        let emailhtml = `<h2> Reset Password </h2>\n\n<p> Hello Sir/madam. Here is the link to reset the password to your account.</p><p> If it wasn't you that requested this please look away from this email otherwise click the link below</p>\n\n https://www.superquickemail.cf/users/manage/password/reset?key=${auserDB.key}\n\n\nSincerly SuperQuickMail Bot (JoyBot)`;
+        this.mail.SendMailHTMl('SuperQuickMail', email, "Reset Password", emailhtml);
+        res.send("Affirmativ");
+    });
     api.get("/logout", async(req, res) => {
         
         res.render("api/access/logout", {

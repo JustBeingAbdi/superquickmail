@@ -11,12 +11,10 @@
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
                     <p id="logintext"></p>
                 </form>
-                <a href="#" data-toggle="modal" data-target="#signup">Signup</a>
+                <a href="#" data-toggle="modal" data-target="#signup">Signup</a> <a href="#" data-toggle="modal" data-target="#reset">Reset Password</a>
 
-                <h2>Login/Signup with Ouath</h2>
-
-                <button type="button" class="btn btn-primary" onclick="window.location.assign(`<%= config.github %><%= client_id %>`)"><i class="fab fa-github"></i> Github</button><button type="button" class="btn btn-primary" onclick="window.location.assign('<%= google %>');"><i class="fab fa-google"></i> Google</button>
-                <a href="/login/ouath" >More Ouath Alternativs</a>
+                <h2>Login/Signup with 3rd Party Services</h2>
+                <a href="/login/ouath">Login with 3rd Party Services</a>
             </div>
             
             
@@ -45,5 +43,32 @@
             </div>
           </div>
         </div>
+
+
+
+        <div id="reset" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header btn-info disabled">
+                <h4 class="modal-title">Reset Password</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <form id="resetform">
+                    
+                   
+                    
+                    <input type="email" class="form-control" id="semail" placeholder="Enter Email">
+                    
+                    
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Reset Password</button>
+                    <p id="resettext"></p>
+                </form>
+              </div>
+              <div class="modal-footer"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button></div>
+            </div>
+          </div>
+        </div>
 <script src="/js/access.js"></script>
+<script src="/js/account-management.js"></script>
        

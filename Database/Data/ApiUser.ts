@@ -7,7 +7,6 @@ export interface IApiUser extends Document {
     email:string,
     password:string,
     verified:boolean,
-    rcode:string,
     ouath:boolean
     
     
