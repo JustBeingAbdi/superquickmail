@@ -13,4 +13,4 @@ export const A_UserSchema: Schema = new Schema({
     type: { type: String, default: 'verify' },
 })
 
-export const A_User: Model<IA_User> = model("ApiKey", A_UserSchema);
+export const A_User: Model<IA_User> = model("AUSER", A_UserSchema);
