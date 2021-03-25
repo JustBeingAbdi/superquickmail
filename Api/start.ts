@@ -128,7 +128,7 @@ if(!req.query.token){
         let googlel = await this.google.getGoogleAuthURL();
         axios({
             method: 'get',
-            url: 'https://api.openauth.cf/github/generate/url?callback=https://superquickemail.cf/ouath/github/callback',
+            url: 'https://api.openauth.cf/github/generate/url?callback=https://www.superquickemail.cf/ouath/github/callback',
             headers: {
                 accept: 'application/json'
             }
