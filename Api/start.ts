@@ -63,7 +63,7 @@ new Connect().connect(Config.database);
   
     axios({
     method: 'get',
-    url: `https://api.openauth.com/get/user?access_token=${requestToken}`,
+    url: `https://api.openauth.cf/get/user?access_token=${requestToken}`,
   }).then(async(response) => {
       let user = await this.database.GetUserViaEmail(response.data.email);
       if(user){
