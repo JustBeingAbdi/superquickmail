@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import ExpressLogger from "leekslazylogger-express";
 import nodemailer from "nodemailer";
 import {Database, Connect} from "./../Database";
@@ -57,24 +57,13 @@ new Connect().connect(Config.database);
 
     });
     api.get("/ouath/github/callback", async(req, res) => {
-        var access_token;
+        
  const requestToken = req.query.code
   
-  axios({
-    method: 'post',
-    url: `https://github.com/login/oauth/access_token?client_id=${OuathConfig.github_clientID}&client_secret=${OuathConfig.github_clientsecret}&code=${requestToken}`,
-    // Set the content type header, so that we get the response in JSON
-    headers: {
-         accept: 'application/json'
-    }
-  }).then((response1) => {
-    access_token = response1.data.access_token;
+  
     axios({
     method: 'get',
-    url: `https://api.github.com/user`,
-    headers: {
-      Authorization: 'token ' + access_token
-    }
+    url: `https://api.openauth.com/get/user?access_token=${requestToken}`,
   }).then(async(response) => {
       let user = await this.database.GetUserViaEmail(response.data.email);
       if(user){
@@ -90,8 +79,6 @@ res.redirect("/login?message=email_reg_ouath");
       user.save();
 
     res.render('api/access/ouath/github',{ user: response.data, token: user.token });
-  })
-    
   })
 
     });
@@ -123,23 +110,35 @@ res.redirect("/login?message=email_reg_ouath");
     })
     api.get("/login", async(req, res) => {
         let googlel = await this.google.getGoogleAuthURL();
-        if(!req.query.token){
+
+        
+if(!req.query.token){
         res.render("api/access/login", {
             db: this.database,
-            client_id: OuathConfig.github_clientID,
             config: OuathConfig,
             google: googlel,
         });
     } else {
         res.redirect(ServerConfig.appurl + `/login?token=${req.query.token}&redirect=${req.query.redirect}`)
     }
+        
+        
     })
     api.get("/login/ouath", async(req, res) => {
         let googlel = await this.google.getGoogleAuthURL();
+        axios({
+            method: 'get',
+            url: 'https://api.openauth.cf/github/generate/url?callback=https://superquickemail.cf/ouath/github/callback',
+            headers: {
+                accept: 'application/json'
+            }
+
+        }).then(async(response) => {
         res.render("api/access/ouath/index", {
-            github: OuathConfig.github + OuathConfig.github_clientID,
+            github: response.data.url,
             google: googlel
         })
+    });
     })
     api.get("/users/verify/header/token", async(req, res) => {
         let token = req.query.token;
