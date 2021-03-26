@@ -12,6 +12,7 @@ import axios from "axios";
 import {DefaultConfig, EmailConfig, ServerConfig, OuathConfig } from "./../lib";
 import {GoogleOuath} from "./../Auth";
 
+import openouath from "./../Auth/openouath";
 export class Api {
     public database: Database = new Database();
     public mail: Mail = new Mail();
@@ -126,19 +127,12 @@ if(!req.query.token){
     })
     api.get("/login/ouath", async(req, res) => {
         let googlel = await this.google.getGoogleAuthURL();
-        axios({
-            method: 'get',
-            url: 'https://api.openauth.cf/github/generate/url?callback=https://www.superquickemail.cf/ouath/github/callback',
-            headers: {
-                accept: 'application/json'
-            }
-
-        }).then(async(response) => {
+        
         res.render("api/access/ouath/index", {
-            github: response.data.url,
+            github: openouath.GetGithubLink('https://www.superquickemail.cf/ouath/github/callback'),
             google: googlel
         })
-    });
+ 
     })
     api.get("/users/verify/header/token", async(req, res) => {
         let token = req.query.token;
