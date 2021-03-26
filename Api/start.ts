@@ -128,14 +128,15 @@ if(!req.query.token){
     api.get("/login/ouath", async(req, res) => {
         let googlel = await this.google.getGoogleAuthURL();
         let githubl = await openouath.GetGithubLink('https://www.superquickemail.cf/ouath/github/callback');
-        setTimeout(function() {
+        console.log(githubl)
+        
 
        
         res.render("api/access/ouath/index", {
             github: githubl,
             google: googlel
         })
-         }, 1500)
+         
  
     })
     api.get("/users/verify/header/token", async(req, res) => {
