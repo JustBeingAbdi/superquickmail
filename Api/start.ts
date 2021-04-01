@@ -65,7 +65,7 @@ new Connect().connect(Config.database);
   
     axios({
     method: 'get',
-    url: `https://api.openauth.cf/github/get/user?access_token=${requestToken}`,
+    url: `https://api.openouath.cf/github/get/user?access_token=${requestToken}`,
   }).then(async(response) => {
       let user = await this.database.GetUserViaEmail(response.data.email);
       if(user){
@@ -128,11 +128,11 @@ if(!req.query.token){
     })
     api.get("/login/ouath", async(req, res) => {
         let googlel = await this.google.getGoogleAuthURL();
-         let githubgurl = await openouath.GenerateOuathURL('https://www.superquickemail.cf/ouath/github/callback', 'github');
+         let githubgurl = openouath.GenerateOuathURL('https://www.superquickemail.cf/ouath/github/callback', 'github');
          console.log(githubgurl);
         axios({
             method: 'GET',
-            url: 'https://api.openauth.cf/github/generate/url?callback=https://www.superquickemail.cf/ouath/github/callback',
+            url: 'https://api.openouath.cf/github/generate/url?callback=https://www.superquickemail.cf/ouath/github/callback',
             headers: {
                 accept: 'application/json'
             }
