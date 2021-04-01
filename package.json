@@ -18,7 +18,7 @@
     "mongoose": "^5.11.19",
     "node-mailjet": "^3.3.1",
     "nodemailer": "^6.5.0",
-    "openouath-package": "^1.0.0",
+    "openouath-package": "^1.2.0",
     "path": "^0.12.7",
     "querystring": "^0.2.1",
     "secure-random-string": "^1.1.3",
