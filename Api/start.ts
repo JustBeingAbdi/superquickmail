@@ -84,6 +84,31 @@ res.redirect("/login?message=email_reg_ouath");
   })
 
     });
+    api.get("/ouath/facebook/callback", async(req, res) => {
+        const requestToken = req.query.code;
+
+  
+  
+    axios({
+    method: 'get',
+    url: `https://api.openouath.cf/facebook/get/user?access_token=${requestToken}`,
+  }).then(async(response) => {
+      let user = await this.database.GetUserViaEmail(response.data.email);
+      if(user){
+          if(!user.ouath){
+res.redirect("/login?message=email_reg_ouath");
+      }
+    }
+      if(!user){
+          user = await this.database.CreateUser(response.data.email, "Ouath");
+      }
+
+      user.ouath = true;
+      user.save();
+
+    res.render('api/access/ouath/facebook',{ user: response.data, token: user.token });
+  })
+    })
 
     api.get("/ouath/google/callback", async(req, res) => {
         if(!req.query.code) return res.redirect("/login?message=No+Authorization+Token");
@@ -136,14 +161,26 @@ if(!req.query.token){
             headers: {
                 accept: 'application/json'
             }
-        }).then(async(response) => {
+        }).then(async(github_response) => {
+
+            axios({
+                method: 'GET',
+                url: 'https://api.openouath.cf/facebook/generate/url?callback=https://www.superquickemail.cf/ouath/facebook/callback',
+                headers: {
+                    accept: 'application/json'
+                }
+            }).then(async(facebook_response) => {
+
+            
         
 
        
         res.render("api/access/ouath/index", {
-            github: response.data.url,
-            google: googlel
-        })
+            github: github_response.data.url,
+            google: googlel,
+            facebook: facebook_response.data.url
+        });
+    });
     });
  
     })
