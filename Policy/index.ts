@@ -31,8 +31,8 @@ export class Server {
     })
     
 
-    app.listen('5757');
-        console.log('Webserver online on port 5757');
+    app.listen(ServerConfig.port);
+        console.log('Webserver online on port ' + port);
 
 
 
