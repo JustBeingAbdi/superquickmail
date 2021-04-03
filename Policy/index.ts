@@ -11,7 +11,7 @@ export class Server {
         
 
     app.use(bodyparser.json());
-    app.use(log.express());
+  
     app.use(bodyparser.urlencoded({ extended: true }));
     app.engine("html", ejs.renderFile);
     app.set('view engine', 'ejs');
