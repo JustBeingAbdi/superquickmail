@@ -4,3 +4,12 @@ export let multiservers: boolean = false;
 export let appport: string = "3100";
 export let appurl: string  = "";
 export let apiurl: string = ""
+
+
+
+// Policy Server Settings
+
+
+export let redirecturl: string = "";
+export let policyurl: string = ""
+export let port: string = "5757"
