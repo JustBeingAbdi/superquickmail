@@ -10,6 +10,6 @@ export let apiurl: string = ""
 // Policy Server Settings
 
 
-export let redirecturl: string = "";
-export let policyurl: string = ""
+export let redirecturl: string = "https://www.superquickemail.cf";
+export let policyurl: string = "https://policy.superquickemail.cf"
 export let port: string = "5757"
