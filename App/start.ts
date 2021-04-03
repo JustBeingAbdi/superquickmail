@@ -70,6 +70,21 @@ new Connect().connect(Config.database);
 
         
     });
+    app.get("/users/account/terminate", async(req,res)=>{
+        let token = req.query.token;
+        if(!token) return res.send("No No Not that quick");
+
+
+        let userDB = await this.database.GetUserViaToken(token);
+
+        token.delete();
+        res.send("Ok");
+
+
+
+
+
+    })
     app.post("/users/manage/password", async(req, res) => {
         let password = req.query.password;
         let token = req.query.token;

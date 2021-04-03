@@ -46,3 +46,13 @@ document.getElementById("changep").addEventListener("submit", function(event) {
     event.preventDefault();
     SavePassword();
 })
+
+
+function Delete() {
+
+    let drequest = new XMLHttpRequest();
+    drequest.open('GET', '/users/account/terminate?token=' + localStorage.getItem("token"));
+    drequest.send();
+    window.location.assign(`/logout?key=${localStorage.getItem("token")}&host=https://${window.location.hostname}`);
+
+}
