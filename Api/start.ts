@@ -153,35 +153,22 @@ if(!req.query.token){
     })
     api.get("/login/ouath", async(req, res) => {
         let googlel = await this.google.getGoogleAuthURL();
-         let githubgurl = openouath.GenerateOuathURL('https://www.superquickemail.cf/ouath/github/callback', 'github');
-         console.log(githubgurl);
-        axios({
-            method: 'GET',
-            url: 'https://api.openouath.cf/github/generate/url?callback=https://www.superquickemail.cf/ouath/github/callback',
-            headers: {
-                accept: 'application/json'
-            }
-        }).then(async(github_response) => {
-
-            axios({
-                method: 'GET',
-                url: 'https://api.openouath.cf/facebook/generate/url?callback=https://www.superquickemail.cf/ouath/facebook/callback',
-                headers: {
-                    accept: 'application/json'
-                }
-            }).then(async(facebook_response) => {
+         let githuburl = await openouath.GenerateOuathURL('https://www.superquickemail.cf/ouath/github/callback', 'github');
+                 let googleurl = await openouath.GenerateOuathURL('https://www.superquickemail.cf/ouath/facebook/callback', 'facebook');
+         
+        
 
             
         
 
        
         res.render("api/access/ouath/index", {
-            github: github_response.data.url,
+            github: githuburl,
             google: googlel,
-            facebook: facebook_response.data.url
+            facebook: googleurl
         });
-    });
-    });
+    
+    
  
     })
     api.get("/users/verify/header/token", async(req, res) => {
