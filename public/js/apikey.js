@@ -17,6 +17,28 @@ function CreateApiKey() {
         }
         document.getElementById("loading").style.display = "none";
         document.getElementById("apikey").textContent = 'Your new Api Key is: '+ respons;
+        let apikeydiv = document.getElementById("apikeydiv");
+
+        let new_form = document.createElement("form")
+        new_form.id = respons;
+        new_form.appendChild(apikeydiv);
+        let newpformname = document.createElement("p")
+        newpformname.textContent = respons;
+        newpformname.appendChild(new_form);
+        let buttonapikey = document.createElement("button");
+        buttonapikey.id = respons;
+        buttonapikey.textContent = 'Delete';
+        buttonapikey.appendChild(new_form);
+        
+
+        buttonapikey.addEventListener("click", function(event) {
+            DeleteApiKey(respons);
+        });
+        document.getElementById(respons).addEventListener("submit", function(event) {
+            event.preventDefault();
+        
+
+
        
         
     }, 1500)
