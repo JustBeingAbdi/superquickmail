@@ -12,7 +12,7 @@ function CreateApiKey() {
             setTimeout(function() {
                 
                 location.reload();
-            }, 1500);
+            }, 30000);
             return;
         }
         document.getElementById("loading").style.display = "none";
@@ -41,8 +41,9 @@ function CreateApiKey() {
 
        
         
-    }, 1500)
+    })
 
+}, 1500)
 }
 
 function DeleteApiKey(key) {
