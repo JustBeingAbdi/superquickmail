@@ -8,6 +8,7 @@ import path from "path";
 import ejs from "ejs";
 import srs from "secure-random-string";
 import {DefaultConfig, EmailConfig, ServerConfig } from "./../lib";
+import cors from "cors";
 export class App {
     public database: Database = new Database();
     public mail: Mail = new Mail();
@@ -23,7 +24,8 @@ new Connect().connect(Config.database);
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, "./../views"));
     app.use(express.static(path.join(__dirname, "./../public")));
-    app.set('trust proxy', true)
+    app.set('trust proxy', true);
+    app.use(cors());
 
     app.get("/", async(req, res) => {
         res.redirect("/app");

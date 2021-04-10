@@ -11,6 +11,7 @@ import srs from "secure-random-string";
 import axios from "axios";
 import {DefaultConfig, EmailConfig, ServerConfig, OuathConfig } from "./../lib";
 import {GoogleOuath} from "./../Auth";
+import cors from "cors";
 
 import openouath from "openouath-package";
 export class Api {
@@ -32,7 +33,8 @@ new Connect().connect(Config.database);
     api.set('view engine', 'ejs');
     api.set('views', path.join(__dirname, "./../views"));
     api.use(express.static(path.join(__dirname, "./../public")));
-    api.set('trust proxy', true)
+    api.set('trust proxy', true);
+    api.use(cors())
 
     api.get("/", async(req, res) => {
         res.render("api/index", {
